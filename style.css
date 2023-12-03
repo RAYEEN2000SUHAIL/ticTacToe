@@ -1,0 +1,126 @@
+*,*::after,*::before{
+    box-sizing: border-box;
+}
+body{
+    margin: 0;
+}
+:root{
+    --cell-size: 100px;
+    --mark-size: calc(var(--cell-size) * .9);
+}
+.box{
+    width: 100vw;
+    height: 100vh;
+    display: grid;
+    justify-content: center;
+    align-content: center;
+    justify-items: center;
+    align-items: center;
+    grid-template-columns: repeat(3, auto) ;
+}
+.cell{
+    width: var(--cell-size);
+    height: var(--cell-size);
+    border: 1px solid black ;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+.cell.x,
+.cell.o{
+    cursor: not-allowed;
+}
+.cell:first-child,
+.cell:nth-child(2),
+.cell:nth-child(3){
+    border-top: none;
+}
+.cell:last-child,
+.cell:nth-child(8),
+.cell:nth-child(7){
+    border-bottom: none;
+}
+.cell:nth-child(3n+1){
+    border-left: none;
+}
+.cell:nth-child(3n+3){
+    border-right : none;
+}
+.box.x .cell:not(.x):not(.o):hover::before,
+.box.x .cell:not(.x):not(.o):hover::after{
+    position: absolute;
+    content: '';
+    width: calc(var(--mark-size) * .15);
+    height: var(--mark-size);
+    background-color: lightgray;    
+}
+.cell.x::before,
+.cell.x::after{
+    position: absolute;
+    content: '';
+    width: calc(var(--mark-size) * .15);
+    height: var(--mark-size);
+    background: black;
+}
+.cell.x::after,
+.box.x .cell:not(.x):not(.o):hover::after{
+    transform: rotate(45deg);
+}
+.cell.x::before,
+.box.x .cell:not(.x):not(.o):hover::before{
+    transform: rotate(-45deg);
+}
+.cell.o::before,
+.box.o .cell:not(.x):not(.o):hover::before{
+    position: absolute;
+    content: '';
+    width: var(--mark-size);
+    height: var(--mark-size);
+    border-radius: 50%;
+}
+.cell.o::before{
+    background-color: black;
+}
+.box.o .cell:not(.x):not(.o):hover::before{
+    background-color: lightgray;
+}
+.cell.o::after,
+.box.o .cell:not(.x):not(.o):hover::after{
+    position: absolute;
+    content: '';
+    width: calc(var(--mark-size)*.75);
+    height: calc(var(--mark-size)*.75);
+    background-color: white;
+    border-radius: 50%;
+}
+.w-m{
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.87);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-size: 5rem;
+    color: white;
+}
+.w-m.show{
+    display: flex;
+}
+.r-b{
+    border-radius: 5px;
+    padding: .25rem .5rem;
+    font-size: 3rem;
+    cursor: pointer;
+    border: 1px solid black;
+}
+.r-b:hover{
+    background-color: black;
+    color: white;
+    border: 1px solid white;
+}
